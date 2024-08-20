@@ -1,0 +1,123 @@
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* utilities */
+* {
+    font-family: dm sans;
+}
+
+body .btn-teal {
+    background-color: var(--bs-teal);
+    color: white;
+}
+
+body .btn-teal:hover {
+    border: 1px solid var(--bs-teal);
+    color: var(--bs-teal);
+}
+
+body h1, h2, h3, h4, h5, h6 {
+    font-weight: 550;
+}
+
+body {
+    margin-bottom: 100px !important;
+}
+
+/* navbar */
+.navbar-brand img {
+ width: 120px;   
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    margin-right: 35px;
+}
+
+.navbar .dropdown-toggle {
+    background: none;
+    border: none;
+    color: var(--bs-secondary);
+}
+
+.navbar-nav .btn-teal {
+    background-color: var(--bs-teal);
+    color: white;
+    width: 150px;
+}
+
+.navbar-nav .btn-teal:hover {
+    border: 1px solid var(--bs-teal);
+    color: var(--bs-teal);
+}
+
+/* banner */
+#banner .banner-teks {
+    text-align: right;
+}
+#banner .banner-image img {
+    width: 100%;
+}
+
+/* ruangan */
+#ruangan .btn {
+    margin-right: 5px;
+}
+
+#ruangan .card {
+    width: 100%;
+    border: none;
+    margin-top: 30px;
+}
+
+/* kontak */
+#kontak .bg-kontak{
+    background-image: url(../assets/img-kontak.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    height: 350px;
+    padding: 50px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+/* login */
+#login img {
+    width: 120px;
+}
+#login a {
+    text-decoration: none;
+    color: var(--bs-teal);
+}
+#login .form-label {
+    margin-top: 10px;
+    font-weight: 550;
+}
+
+/* register */
+#register img {
+    width: 120px;
+}
+#register a {
+    text-decoration: none;
+    color: var(--bs-teal);
+}
+#register .form-label {
+    margin-top: 10px;
+    font-weight: 550;
+}
+/* footer */
+footer a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+footer a:hover {
+    text-decoration: underline var(--bs-teal);    
+}
