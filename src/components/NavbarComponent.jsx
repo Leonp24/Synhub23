@@ -14,7 +14,11 @@ const NavbarComponent = ({ isLoggedIn }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="d-flex align-items-center">
-            <Nav.Link href="/">Beranda</Nav.Link>
+            {isLoggedIn ? (
+              <Nav.Link href="/home">Beranda</Nav.Link>
+            ) : (
+              <Nav.Link href="/">Beranda</Nav.Link>
+            )}
             <NavDropdown title="Ruangan" id="basic-nav-dropdown">
               <NavDropdown.Item href="/ruang-meeting">Ruang Meeting</NavDropdown.Item>
               <NavDropdown.Item href="/ruang-acara">Ruang Acara</NavDropdown.Item>

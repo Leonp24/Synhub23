@@ -111,6 +111,21 @@ body {
     margin-top: 10px;
     font-weight: 550;
 }
+
+#form-pesan label {
+    font-weight: 550;
+    margin-top: 15px;
+}
+
+
+.title {
+    text-transform: uppercase;
+    font-weight: 550;
+    letter-spacing: 5px;
+}
+
+
+
 /* footer */
 footer a {
     display: block;
@@ -121,3 +136,4 @@ footer a {
 footer a:hover {
     text-decoration: underline var(--bs-teal);    
 }
+
