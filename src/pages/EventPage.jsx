@@ -4,45 +4,74 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import KontakComponent from "../components/KontakComponent";
 import FooterComponent from "../components/FooterComponent";
 
-const MeetingPage = () => {
-    // handle jumlah orang
-    const [jumlah, setJumlah] = useState(2);
-    const handleJumlahChange = (event) => {
-        setJumlah(parseInt(event.target.value));
-    };
-
-    // handle waktu mulai dan selesai
+const EventPage = () => {
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
-    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+    const [durationDays, setDurationDays] = useState(0);
+    const [totalCost, setTotalCost] = useState(0);
+
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+        calculateDuration(e.target.value, endDate);
+    };
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+        calculateDuration(startDate, e.target.value);
+    };
 
     const handleStartTimeChange = (e) => {
         setStartTime(e.target.value);
-        setEndTime('');  // reset endTime saat waktu mulai berubah
+        setEndTime('');
     };
 
     const handleEndTimeChange = (e) => {
         setEndTime(e.target.value);
     };
 
+    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
     const availableEndTimes = times.filter(time => time > startTime);
 
-    // handle metode pembayaran
+    const calculateDuration = (start, end) => {
+        if (start && end) {
+            const startDateObj = new Date(start);
+            const endDateObj = new Date(end);
+
+            // Pastikan tanggal valid
+            if (startDateObj instanceof Date && !isNaN(startDateObj) && endDateObj instanceof Date && !isNaN(endDateObj)) {
+                let daysDifference = Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 3600 * 24)) + 1;
+
+                // Jika tanggal mulai dan selesai sama, setel hari menjadi 1
+                if (daysDifference === 0) {
+                    daysDifference = 1;
+                }
+
+                setDurationDays(daysDifference);
+
+                // Hitung total biaya berdasarkan hari saja
+                const cost = daysDifference * 150000; // biaya per hari
+                setTotalCost(cost);
+            } else {
+                setDurationDays(0);
+                setTotalCost(0);
+            }
+        } else {
+            setDurationDays(0);
+            setTotalCost(0);
+        }
+    };
+
+    const [jumlah, setJumlah] = useState(10);
+    const handleJumlahChange = (event) => {
+        setJumlah(parseInt(event.target.value));
+    };
+
     const [paymentMethod, setPaymentMethod] = useState('');
     const handlePaymentMethodChange = (e) => {
         setPaymentMethod(e.target.value);
     };
-
-    // menghitung total waktu dan biaya
-    const calculateDuration = () => {
-        if (!startTime || !endTime) return 0;
-        const startHour = parseInt(startTime.split(':')[0]);
-        const endHour = parseInt(endTime.split(':')[0]);
-        return endHour - startHour;
-    };
-
-    const duration = calculateDuration();
-    const totalCost = duration * 80000;
 
     return (
         <>
@@ -51,15 +80,15 @@ const MeetingPage = () => {
                 <Container>
                     <Row>
                         <Col lg={8}>
-                            <h1>Ruang Meeting untuk <br /> Segala kebutuhan Anda.</h1>
+                            <h1>Ruang Untuk berbagai <br /> jenis Acara</h1>
                         </Col>
                         <Col lg={4}>
-                            <p className="banner-teks">Ruang meeting kami dirancang dengan baik untuk mendukung produktivitas Anda.</p>
+                            <p className="banner-teks">Ruang Acara kami dirancang dengan baik untuk mendukung Acara Anda.</p>
                         </Col>
                     </Row>
                     <Row className="banner-image mt-5">
                         <Col>
-                            <img src="../src/assets/img-rmeeting.png" alt="Ruang Meeting" />
+                            <img src="../src/assets/img-racara.png" alt="Ruang Acara" />
                         </Col>
                     </Row>
                 </Container>
@@ -70,11 +99,10 @@ const MeetingPage = () => {
                     <Row>
                         <Col className="d-lg-flex align-items-center">
                             <h3 className="me-5">Fasilitas</h3>
-                            <Button variant="outline-dark me-3">4-10 Kursi</Button>
+                            <Button variant="outline-dark me-3">Hingga 150 Kursi</Button>
                             <Button variant="outline-dark me-3">Free Drink</Button>
                             <Button variant="outline-dark me-3">Proyektor</Button>
-                            <Button variant="outline-dark me-3">Wifi</Button>
-                            <Button variant="outline-dark me-3">Papan Tulis</Button>
+                            <Button variant="outline-dark me-3">Dedicated Internet</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -84,8 +112,8 @@ const MeetingPage = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <h1>Pesan Ruang Meeting</h1>
-                            <p>Beritahu kami kebutuhan ruang meeting Anda.</p>
+                            <h1>Pesan Ruang Acara</h1>
+                            <p>Beritahu kami kebutuhan ruang Acara Anda.</p>
                         </Col>
                     </Row>
 
@@ -114,21 +142,26 @@ const MeetingPage = () => {
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Jumlah Orang</Form.Label>
-                                        <Form.Control type="number" name="jumlah-orang" min={2} value={jumlah} onChange={handleJumlahChange} required/>
+                                        <Form.Label>Jumlah Tamu Yang Diharapkan</Form.Label>
+                                        <Form.Control type="number" name="jumlah-orang" min={10} value={jumlah} onChange={handleJumlahChange} required/>
                                     </Form.Group>
                                 </Col>
                             </Row>
                         </div>
 
-
-                        <div className="info-meeting mt-5">
-                            <h5 className="title">Informasi Meeting</h5>
+                        <div className="info-acara mt-5">
+                            <h5 className="title">Informasi Acara</h5>
                             <Row>
-                                <Col lg={4}>
+                                <Col lg={2}>
                                     <Form.Group>
-                                        <Form.Label>Pilih Tanggal</Form.Label>
-                                        <Form.Control type="date" name="tanggal" required/>
+                                        <Form.Label>Tanggal Mulai</Form.Label>
+                                        <Form.Control type="date" name="tanggalMulai" onChange={handleStartDateChange} required/>
+                                    </Form.Group>
+                                </Col>
+                                <Col lg={2}>
+                                    <Form.Group>
+                                        <Form.Label>Tanggal Selesai</Form.Label>
+                                        <Form.Control type="date" name="tanggalSelesai" onChange={handleEndDateChange} required/>
                                     </Form.Group>
                                 </Col>
                                 <Col lg={2}>
@@ -161,7 +194,7 @@ const MeetingPage = () => {
                             <Row>
                                 <Col lg={8}>
                                     <Form.Group>
-                                        <Form.Label>Ada Kebutuhan Lain?</Form.Label>
+                                        <Form.Label>Penjelasan Singkat Tentang Acara</Form.Label>
                                         <Form.Control as="textarea" name="deskripsi" rows={3} />
                                     </Form.Group>
                                 </Col>
@@ -187,10 +220,9 @@ const MeetingPage = () => {
                                 <Col lg={4}>
                                     <label htmlFor="ringkasan">Ringkasan Pembayaran</label>
                                     <p>Metode bayar yang dipilih: <b>{paymentMethod}</b></p>
-                                    <p>Total Waktu: <b>{duration}</b> Jam <b>(IDR {totalCost.toLocaleString()})</b></p>
+                                    <p>Total Waktu: <b>{durationDays}</b> Hari, per <b>{startTime} - {endTime}</b>, <b>(IDR {totalCost.toLocaleString()})</b></p>
                                 </Col>
                             </Row>
-
                         </div>
                         <button className="btn btn-teal w-50 mt-3" type="submit">Reservasi</button>
                     </form>
@@ -203,4 +235,4 @@ const MeetingPage = () => {
     );
 };
 
-export default MeetingPage;
+export default EventPage;

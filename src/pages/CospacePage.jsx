@@ -4,7 +4,7 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import KontakComponent from "../components/KontakComponent";
 import FooterComponent from "../components/FooterComponent";
 
-const MeetingPage = () => {
+const CospacePage = () => {
     // handle jumlah orang
     const [jumlah, setJumlah] = useState(2);
     const handleJumlahChange = (event) => {
@@ -42,7 +42,7 @@ const MeetingPage = () => {
     };
 
     const duration = calculateDuration();
-    const totalCost = duration * 80000;
+    const totalCost = duration * 15000;
 
     return (
         <>
@@ -51,15 +51,15 @@ const MeetingPage = () => {
                 <Container>
                     <Row>
                         <Col lg={8}>
-                            <h1>Ruang Meeting untuk <br /> Segala kebutuhan Anda.</h1>
+                            <h1>Ruang Coworking <br /> Tingkatkan Produktivitas.</h1>
                         </Col>
                         <Col lg={4}>
-                            <p className="banner-teks">Ruang meeting kami dirancang dengan baik untuk mendukung produktivitas Anda.</p>
+                            <p className="banner-teks">Pilih tempat duduk yang terbuka, dan mulai bekerja Tingkatkan produktivitas kerja anda.</p>
                         </Col>
                     </Row>
                     <Row className="banner-image mt-5">
                         <Col>
-                            <img src="../src/assets/img-rmeeting.png" alt="Ruang Meeting" />
+                            <img src="../src/assets/img-cospace.png" alt="Ruang Meeting" />
                         </Col>
                     </Row>
                 </Container>
@@ -70,11 +70,11 @@ const MeetingPage = () => {
                     <Row>
                         <Col className="d-lg-flex align-items-center">
                             <h3 className="me-5">Fasilitas</h3>
-                            <Button variant="outline-dark me-3">4-10 Kursi</Button>
                             <Button variant="outline-dark me-3">Free Drink</Button>
-                            <Button variant="outline-dark me-3">Proyektor</Button>
                             <Button variant="outline-dark me-3">Wifi</Button>
-                            <Button variant="outline-dark me-3">Papan Tulis</Button>
+                            <Button variant="outline-dark me-3">Single Space</Button>
+                            <Button variant="outline-dark me-3">Fleksibel</Button>
+                            <Button variant="outline-dark me-3">Tersedia 25 Kursi</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -84,8 +84,8 @@ const MeetingPage = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <h1>Pesan Ruang Meeting</h1>
-                            <p>Beritahu kami kebutuhan ruang meeting Anda.</p>
+                            <h1>Pesan Kursi Coworking Space</h1>
+                            <p>Cari tempat duduk yang terbuka dan mulai bekerja.</p>
                         </Col>
                     </Row>
 
@@ -105,25 +105,11 @@ const MeetingPage = () => {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col lg={4}>
-                                    <Form.Group>
-                                        <Form.Label>Nama Perusahaan/Industri</Form.Label>
-                                        <Form.Control type="text" name="nama-perusahaan" placeholder="cth. PT. ABC" required/>
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={4}>
-                                    <Form.Group>
-                                        <Form.Label>Jumlah Orang</Form.Label>
-                                        <Form.Control type="number" name="jumlah-orang" min={2} value={jumlah} onChange={handleJumlahChange} required/>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
                         </div>
 
 
                         <div className="info-meeting mt-5">
-                            <h5 className="title">Informasi Meeting</h5>
+                            <h5 className="title">Informasi Coworking Space</h5>
                             <Row>
                                 <Col lg={4}>
                                     <Form.Group>
@@ -155,14 +141,6 @@ const MeetingPage = () => {
                                                 </option>
                                             ))}
                                         </Form.Select>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col lg={8}>
-                                    <Form.Group>
-                                        <Form.Label>Ada Kebutuhan Lain?</Form.Label>
-                                        <Form.Control as="textarea" name="deskripsi" rows={3} />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -203,4 +181,4 @@ const MeetingPage = () => {
     );
 };
 
-export default MeetingPage;
+export default CospacePage;
