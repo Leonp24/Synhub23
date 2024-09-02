@@ -47,7 +47,7 @@ const CospacePage = () => {
     return (
         <>
             <NavbarComponent isLoggedIn={true} />
-            <div id="banner" className="mt-5">
+            <div id="banner">
                 <Container>
                     <Row>
                         <Col lg={8}>

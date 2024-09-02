@@ -9,6 +9,8 @@ import MeetingPage from "./pages/MeetingPage"
 import EventPage from "./pages/EventPage"
 import CospacePage from "./pages/CospacePage"
 import PaymentPage from "./pages/PaymentPage"
+import SuccessPage from "./pages/SuccessPage"
+import OrderPage from "./pages/OrderPage"
 
 function App() {
     return (
@@ -21,6 +23,8 @@ function App() {
       <Route path="/ruang-acara" Component={EventPage} />
       <Route path="/cospace" Component={CospacePage} />
       <Route path="/payment" Component={PaymentPage} />
+      <Route path="/success" Component={SuccessPage} />
+      <Route path="/order" Component={OrderPage} />
     </Routes>
   )
 }

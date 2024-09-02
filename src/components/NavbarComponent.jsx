@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 
 const NavbarComponent = ({ isLoggedIn }) => {
   return (
-    <Navbar expand="lg">
+    <Navbar expand="lg" fixed="top" bg='white' className='mb-5'>
       <Container>
         <Navbar.Brand href="/"><img src={logo} alt="" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -27,7 +27,7 @@ const NavbarComponent = ({ isLoggedIn }) => {
             
             {isLoggedIn ? (
               <>
-                <Nav.Link href="/pesanan">Pesanan</Nav.Link>
+                <Nav.Link href="/order">Pesanan</Nav.Link>
                 <Dropdown>
                   <Dropdown.Toggle>
                     <FontAwesomeIcon icon={faCircleUser} />

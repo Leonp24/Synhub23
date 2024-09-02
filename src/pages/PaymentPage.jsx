@@ -14,7 +14,7 @@ const PaymentPage = () => {
     return (
         <>
             <NavbarComponent isLoggedIn={true} />
-            <div id="payment" className="mt-5">
+            <div id="payment">
                 <Container>
                     <Row>
                         <Col>

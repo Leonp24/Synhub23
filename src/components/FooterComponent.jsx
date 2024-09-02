@@ -5,6 +5,7 @@ const FooterComponent = () => {
     return (
       <footer className="mt-5">
         <Container>
+          <hr className="d-lg-none d-block" />
           <Row>
             <Col lg={3}>
                 <img src="../src/assets/logo.png" alt="" width="120px" />

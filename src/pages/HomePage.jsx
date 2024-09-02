@@ -8,7 +8,7 @@ const HomePage = () => {
     return (
         <>
             <NavbarComponent isLoggedIn={true} />
-            <div id="banner" className="mt-5">
+            <div id="banner">
                 <Container>
                     <Row>
                         <Col lg={8}>
@@ -19,26 +19,34 @@ const HomePage = () => {
                             <p className="banner-teks">Ruang tumbuh untuk bisnis meningkatkan kreatifitas dan kenyamanan saat bekerja.</p>
                         </Col>
                     </Row>
-                    <Row className="banner-image mt-5 d-flex align-items-center">
+                    <Row className="banner-image mt-5 d-none d-lg-flex align-items-center">
                         <Col lg={5}>
                             <img src="../src/assets/img-hero1.png" alt="" />
                         </Col>
-                        <Col lg={7}>
+                        <Col lg={7} d>
                             <Row>
-                                <Col>
+                                <Col d>
                                     <img src="../src/assets/img-hero2.png" alt="" />
                                 </Col>
                             </Row>
                             <Row className="mt-4">
-                                <Col lg={6}>
+                                <Col lg={6} d>
                                     <img src="../src/assets/img-hero3.png" alt="" />
                                 </Col>
-                                <Col lg={6}>
+                                <Col lg={6} d>
                                     <img src="../src/assets/img-hero4.png" alt="" />
                                 </Col>
                             </Row>
                         </Col>
                     </Row>
+
+                    <Row className="banner-image mt-3 d-lg-none d-block align-items-center">
+                        <Col>
+                            <img src="../src/assets/img-hero1.png" alt="" />
+                        </Col>
+                    </Row>
+
+
                 </Container>
             </div>
 
@@ -117,7 +125,7 @@ const HomePage = () => {
             </div>
 
             <KontakComponent />
-            <FooterComponent/>
+            <FooterComponent />
         </>
     );
 }
