@@ -1,6 +1,6 @@
 {
   "name": "synhub-main",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
   "homepage": "https://leonp24.github.io/Synhub23",
   "type": "module",
