@@ -7,8 +7,6 @@ import FooterComponent from "../components/FooterComponent";
 const EventPage = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
     const [durationDays, setDurationDays] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
 
@@ -21,18 +19,6 @@ const EventPage = () => {
         setEndDate(e.target.value);
         calculateDuration(startDate, e.target.value);
     };
-
-    const handleStartTimeChange = (e) => {
-        setStartTime(e.target.value);
-        setEndTime('');
-    };
-
-    const handleEndTimeChange = (e) => {
-        setEndTime(e.target.value);
-    };
-
-    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
-    const availableEndTimes = times.filter(time => time > startTime);
 
     const calculateDuration = (start, end) => {
         if (start && end) {
@@ -123,13 +109,13 @@ const EventPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Nama Pemesan</Form.Label>
-                                        <Form.Control type="text" name="nama-pemesan" placeholder="Masukkan Nama Lengkap" required/>
+                                        <Form.Control type="text" name="nama-pemesan" placeholder="Masukkan Nama Lengkap" required />
                                     </Form.Group>
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Nomor Telpon</Form.Label>
-                                        <Form.Control type="text" name="telpon" placeholder="cth. 08123456789" required/>
+                                        <Form.Control type="text" name="telpon" placeholder="cth. 08123456789" required />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -137,13 +123,13 @@ const EventPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Nama Perusahaan/Industri</Form.Label>
-                                        <Form.Control type="text" name="nama-perusahaan" placeholder="cth. PT. ABC" required/>
+                                        <Form.Control type="text" name="nama-perusahaan" placeholder="cth. PT. ABC" required />
                                     </Form.Group>
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Jumlah Tamu Yang Diharapkan</Form.Label>
-                                        <Form.Control type="number" name="jumlah-orang" min={10} value={jumlah} onChange={handleJumlahChange} required/>
+                                        <Form.Label>Jumlah Orang</Form.Label>
+                                        <Form.Control type="number" name="jumlah-orang" min={10} value={jumlah} onChange={handleJumlahChange} required />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -152,42 +138,16 @@ const EventPage = () => {
                         <div className="info-acara mt-5">
                             <h5 className="title">Informasi Acara</h5>
                             <Row>
-                                <Col lg={2}>
+                                <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Mulai</Form.Label>
-                                        <Form.Control type="date" name="tanggalMulai" onChange={handleStartDateChange} required/>
+                                        <Form.Control type="date" name="tanggalMulai" onChange={handleStartDateChange} required />
                                     </Form.Group>
                                 </Col>
-                                <Col lg={2}>
+                                <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Selesai</Form.Label>
-                                        <Form.Control type="date" name="tanggalSelesai" onChange={handleEndDateChange} required/>
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={2}>
-                                    <Form.Group>
-                                        <Form.Label>Waktu Mulai</Form.Label>
-                                        <Form.Select aria-label="waktu-mulai" onChange={handleStartTimeChange} required>
-                                            <option>--</option>
-                                            {times.map((time, index) => (
-                                                <option key={index} value={time}>
-                                                    {time}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
-                                    </Form.Group>
-                                </Col>
-                                <Col lg={2}>
-                                    <Form.Group>
-                                        <Form.Label>Sampai</Form.Label>
-                                        <Form.Select aria-label="sampai" disabled={!startTime} onChange={handleEndTimeChange} required>
-                                            <option>--</option>
-                                            {availableEndTimes.map((time, index) => (
-                                                <option key={index} value={time}>
-                                                    {time}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
+                                        <Form.Control type="date" name="tanggalSelesai" onChange={handleEndDateChange} required />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -220,7 +180,7 @@ const EventPage = () => {
                                 <Col lg={4}>
                                     <label htmlFor="ringkasan">Ringkasan Pembayaran</label>
                                     <p>Metode bayar yang dipilih: <b>{paymentMethod}</b></p>
-                                    <p>Total Waktu: <b>{durationDays}</b> Hari, per <b>{startTime} - {endTime}</b>, <b>(IDR {totalCost.toLocaleString()})</b></p>
+                                    <p>Total Waktu: <b>{durationDays}</b> Hari, <b>(IDR {totalCost.toLocaleString()})</b></p>
                                 </Col>
                             </Row>
                         </div>

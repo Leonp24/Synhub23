@@ -157,6 +157,10 @@ body {
     justify-content: center;
 }
 
+#sukses {
+    margin-top: 50px;
+}
+
 #sukses .bg-kode-reservasi {
     background-color: #FFF6E4;
     padding: 25px;

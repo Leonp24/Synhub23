@@ -33,7 +33,7 @@ const PaymentPage = () => {
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Tanggal Pemesanan</Form.Label>
+                                        <Form.Label>Tanggal Pesan</Form.Label>
                                         <Form.Control type="text" name="tanggalPemesanan" value="01/08/2024" disabled />
                                     </Form.Group>
                                 </Col>
@@ -108,7 +108,6 @@ const PaymentPage = () => {
                             <Row>
                                 <Col lg={8}>
                                     <button className="btn btn-teal w-100 mt-5" type="submit">Konfirmasi</button>
-                                    <Link to="/order" className="btn btn-outline-warning text-center w-100 mt-3">Bayar Nanti</Link>
                                 </Col>
                             </Row>
 
