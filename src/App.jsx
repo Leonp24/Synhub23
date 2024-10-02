@@ -1,16 +1,16 @@
 import { Routes, Route } from "react-router-dom"
 
 // pages
-import LandingPage from "./pages/LandingPage"
+import LandingPage from "./pages/Customer/LandingPage"
 import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
-import HomePage from "./pages/HomePage"
-import MeetingPage from "./pages/MeetingPage"
-import EventPage from "./pages/EventPage"
-import CospacePage from "./pages/CospacePage"
-import PaymentPage from "./pages/PaymentPage"
-import SuccessPage from "./pages/SuccessPage"
-import OrderPage from "./pages/OrderPage"
+import RegisterPage from "./pages/Customer/RegisterPage"
+import HomePage from "./pages/Customer/HomePage"
+import MeetingPage from "./pages/Customer/MeetingPage"
+import EventPage from "./pages/Customer/EventPage"
+import CospacePage from "./pages/Customer/CospacePage"
+import PaymentPage from "./pages/Customer/PaymentPage"
+import SuccessPage from "./pages/Customer/SuccessPage"
+import OrderPage from "./pages/Customer/OrderPage"
 
 function App() {
     return (

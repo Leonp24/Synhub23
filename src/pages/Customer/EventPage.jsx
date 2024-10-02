@@ -1,8 +1,8 @@
-import NavbarComponent from "../components/NavbarComponent";
+import NavbarComponent from "../../components/Customer/NavbarComponent";
 import { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import KontakComponent from "../components/KontakComponent";
-import FooterComponent from "../components/FooterComponent";
+import KontakComponent from "../../components/Customer/KontakComponent";
+import FooterComponent from "../../components/Customer/FooterComponent";
 
 const EventPage = () => {
     const [startDate, setStartDate] = useState("");
@@ -129,7 +129,7 @@ const EventPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Jumlah Orang</Form.Label>
-                                        <Form.Control type="number" name="jumlah-orang" min={10} value={jumlah} onChange={handleJumlahChange} required />
+                                        <Form.Control type="number" name="jumlah-orang" min={10} max={150} value={jumlah} onChange={handleJumlahChange} required />
                                     </Form.Group>
                                 </Col>
                             </Row>

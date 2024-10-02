@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png"
+import logo from "../../assets/logo.png"
 
 import { Container, Row, Col, Form} from "react-bootstrap"
 import { Link } from "react-router-dom"
@@ -19,13 +19,13 @@ const RegisterPage = () => {
 
                                 <form action="/login">
                                     <Form.Label>Nama Lengkap</Form.Label>
-                                    <Form.Control type="text" name="nama-lengkap" placeholder="Masukkan Nama Lengkap" />
+                                    <Form.Control type="text" name="nama-lengkap" placeholder="Masukkan Nama Lengkap" required/>
                                     <Form.Label>Nomor Telepon</Form.Label>
-                                    <Form.Control type="text" name="telepon" placeholder="Masukkan Email" />
+                                    <Form.Control type="text" name="telepon" placeholder="Masukkan Email" required/>
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" name="email" placeholder="Masukkan Email" />
+                                    <Form.Control type="email" name="email" placeholder="Masukkan Email" required/>
                                     <Form.Label>Buat Password</Form.Label>
-                                    <Form.Control type="password" name="password" placeholder="Masukkan Password" />
+                                    <Form.Control type="password" name="password" placeholder="Masukkan Password" required/>
 
                                     <button className="btn btn-teal w-100 mt-5" type="submit">Buat Akun</button>
                                 </form>

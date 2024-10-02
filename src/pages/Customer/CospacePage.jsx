@@ -1,8 +1,8 @@
-import NavbarComponent from "../components/NavbarComponent";
+import NavbarComponent from "../../components/Customer/NavbarComponent";
 import { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import KontakComponent from "../components/KontakComponent";
-import FooterComponent from "../components/FooterComponent";
+import KontakComponent from "../../components/Customer/KontakComponent";
+import FooterComponent from "../../components/Customer/FooterComponent";
 
 const CospacePage = () => {
     // handle jumlah orang
@@ -108,7 +108,7 @@ const CospacePage = () => {
                         </div>
 
 
-                        <div className="info-meeting mt-5">
+                        <div className="info-cospace mt-5">
                             <h5 className="title">Informasi Coworking Space</h5>
                             <Row>
                                 <Col lg={4}>

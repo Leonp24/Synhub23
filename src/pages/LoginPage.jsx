@@ -19,9 +19,9 @@ const LoginPage = () => {
 
                                 <form action="/home">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" name="email" placeholder="Masukkan Email" />
+                                    <Form.Control type="email" name="email" placeholder="Masukkan Email" required/>
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" name="password" placeholder="Masukkan Password" />
+                                    <Form.Control type="password" name="password" placeholder="Masukkan Password" required/>
                                     <Link className="d-flex justify-content-end mt-2">Lupa Password?</Link>
 
                                     <button className="btn btn-teal w-100 mt-5" type="submit">Masuk</button>

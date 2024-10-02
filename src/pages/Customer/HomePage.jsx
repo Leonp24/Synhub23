@@ -1,8 +1,10 @@
-import NavbarComponent from "../components/NavbarComponent";
-import KontakComponent from "../components/KontakComponent";
+import NavbarComponent from "../../components/Customer/NavbarComponent";
+import KontakComponent from "../../components/Customer/KontakComponent";
 
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import FooterComponent from "../components/FooterComponent";
+import FooterComponent from "../../components/Customer/FooterComponent";
+
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
     return (
@@ -64,7 +66,7 @@ const HomePage = () => {
                                 <Card.Body>
                                     <Row>
                                         <Col>
-                                            <Card.Title>Ruang Meeting</Card.Title>
+                                            <Card.Title><Link to="/ruang-meeting">Ruang Meeting</Link></Card.Title>
                                         </Col>
                                         <Col>
                                             <p className="text-end">IDR 80K / Jam</p>
@@ -84,10 +86,10 @@ const HomePage = () => {
                                 <Card.Body>
                                     <Row>
                                         <Col>
-                                            <Card.Title>Ruang Acara</Card.Title>
+                                            <Card.Title><Link to="/ruang-acara">Ruang Acara</Link></Card.Title>
                                         </Col>
                                         <Col>
-                                            <p className="text-end">IDR 150K / Jam</p>
+                                            <p className="text-end">IDR 150K / Hari</p>
                                         </Col>
                                     </Row>
                                     <Card.Text>
@@ -105,7 +107,7 @@ const HomePage = () => {
                                 <Card.Body>
                                     <Row>
                                         <Col>
-                                            <Card.Title>Coworking Space</Card.Title>
+                                            <Card.Title><Link to="/cospace">Coworking Space</Link></Card.Title>
                                         </Col>
                                         <Col>
                                             <p className="text-end">IDR 15K / Jam</p>

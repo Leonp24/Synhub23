@@ -82,6 +82,16 @@ body {
     margin-top: 30px;
 }
 
+#ruangan .card a {
+    text-decoration: none;
+    color: black;
+}
+
+#ruangan .card a:hover {
+    text-decoration: underline 1px var(--bs-teal);
+    color: black;
+}
+
 /* kontak */
 #kontak .bg-kontak {
     background-image: url(../assets/img-kontak.png);

@@ -1,4 +1,4 @@
-import NavbarComponent from "../components/NavbarComponent";
+import NavbarComponent from "../../components/Customer/NavbarComponent";
 
 import { Container, Row, Col } from "react-bootstrap";
 

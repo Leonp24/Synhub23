@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 
 const NavbarComponent = ({ isLoggedIn }) => {
   return (
