@@ -5,8 +5,46 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import FooterComponent from "../../components/Customer/FooterComponent";
 
 import { Link } from "react-router-dom";
+import Api from "../../api";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
+
+    // banner API
+    const [banner_1, setBanner_1] = useState({});
+    const [banner_2, setBanner_2] = useState({});
+    const [banner_3, setBanner_3] = useState({});
+    const [banner_4, setBanner_4] = useState({});
+
+    // produk API
+    const [produk, setProduk] = useState([]);
+
+    // data banner
+    const getDataBanner = async () => {
+        await Api.get('/customer/banner')
+            .then((res) => {
+                // console.log(res.data);
+                setBanner_1(res.data.find(item => item.posisi == '1'));
+                setBanner_2(res.data.find(item => item.posisi == '2'));
+                setBanner_3(res.data.find(item => item.posisi == '3'));
+                setBanner_4(res.data.find(item => item.posisi == '4'));
+            })
+    }
+
+    // data produk
+    const getDataProduk = async () => {
+        await Api.get('/customer/produk')
+            .then((res) => {
+                // console.log(res.data);
+                setProduk(res.data);
+            })
+    }
+
+    useEffect(() => {
+        getDataBanner();
+        getDataProduk();
+    }, [])
+
     return (
         <>
             <NavbarComponent isLoggedIn={true} />
@@ -23,20 +61,20 @@ const HomePage = () => {
                     </Row>
                     <Row className="banner-image mt-5 d-none d-lg-flex align-items-center">
                         <Col lg={5}>
-                            <img src="../src/assets/img-hero1.png" alt="" />
+                            <img src={banner_1.foto} alt={banner_1.judul} />
                         </Col>
                         <Col lg={7} d>
                             <Row>
                                 <Col d>
-                                    <img src="../src/assets/img-hero2.png" alt="" />
+                                    <img src={banner_2.foto} alt={banner_2.judul} />
                                 </Col>
                             </Row>
                             <Row className="mt-4">
                                 <Col lg={6} d>
-                                    <img src="../src/assets/img-hero3.png" alt="" />
+                                    <img src={banner_3.foto} alt={banner_3.judul} />
                                 </Col>
                                 <Col lg={6} d>
-                                    <img src="../src/assets/img-hero4.png" alt="" />
+                                    <img src={banner_4.foto} alt={banner_4.judul} />
                                 </Col>
                             </Row>
                         </Col>
@@ -60,68 +98,37 @@ const HomePage = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={4}>
-                            <Card>
-                                <Card.Img variant="top" src="../src/assets/img-rmeeting.png" />
-                                <Card.Body>
-                                    <Row>
-                                        <Col>
-                                            <Card.Title><Link to="/ruang-meeting">Ruang Meeting</Link></Card.Title>
-                                        </Col>
-                                        <Col>
-                                            <p className="text-end">IDR 80K / Jam</p>
-                                        </Col>
-                                    </Row>
-                                    <Card.Text>
-                                        Ruang meeting ideal untuk bisnis dan usaha yang ingin melakukan pertemuan atau mencari inspirasi bersama.
-                                    </Card.Text>
-                                    <Button variant="outline-dark">4-10 Kursi</Button>
-                                    <Button variant="outline-dark">Free Drink</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col lg={4}>
-                            <Card>
-                                <Card.Img variant="top" src="../src/assets/img-racara.png" />
-                                <Card.Body>
-                                    <Row>
-                                        <Col>
-                                            <Card.Title><Link to="/ruang-acara">Ruang Acara</Link></Card.Title>
-                                        </Col>
-                                        <Col>
-                                            <p className="text-end">IDR 150K / Hari</p>
-                                        </Col>
-                                    </Row>
-                                    <Card.Text>
-                                        Ruang acara untuk Workshop, seminar, dan acara lainnya. Dilengkapi dengan peralatan pendukung acara.
-                                    </Card.Text>
-                                    <Button variant="outline-dark">30 -150 Kursi</Button>
-                                    <Button variant="outline-dark">Event Tools</Button>
-                                    <Button variant="outline-dark">Sound System</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col lg={4}>
-                            <Card>
-                                <Card.Img variant="top" src="../src/assets/img-cospace.png" />
-                                <Card.Body>
-                                    <Row>
-                                        <Col>
-                                            <Card.Title><Link to="/cospace">Coworking Space</Link></Card.Title>
-                                        </Col>
-                                        <Col>
-                                            <p className="text-end">IDR 15K / Jam</p>
-                                        </Col>
-                                    </Row>
-                                    <Card.Text>
-                                        Pilihan terbaik untuk anda yang ingin mencari inspirasi dan bekerja dengan nyaman.
-                                    </Card.Text>
-                                    <Button variant="outline-dark">Single</Button>
-                                    <Button variant="outline-dark">Free Drink</Button>
-                                    <Button variant="outline-dark">Free Wifi</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                        {
+                            produk.length > 0 ?
+                                produk.map((item) => (
+                                    <Col lg={4}>
+                                        <Link to={`/ruangan/${item.slug}`} className="text-decoration-none">
+                                            <Card>
+                                                <Card.Img variant="top" src={item.foto} />
+                                                <Card.Body>
+                                                    <Row>
+                                                        <Col>
+                                                            <Card.Title>{item.judul_pendek}</Card.Title>
+                                                        </Col>
+                                                        <Col>
+                                                            <p className="text-end">IDR {item.harga / 1000}K / {item.satuan}</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Card.Text>
+                                                        {item.deskripsi}
+                                                    </Card.Text>
+                                                    {
+                                                        item.fasilitas.slice(0, 2).map((item) => (
+                                                            <Button variant="outline-dark">{item.keterangan}</Button>
+                                                        ))
+                                                    }
+                                                </Card.Body>
+                                            </Card>
+                                        </Link>
+                                    </Col>
+                                ))
+                                : <h3>Tidak ada ruangan</h3>
+                        }
                     </Row>
                 </Container>
             </div>

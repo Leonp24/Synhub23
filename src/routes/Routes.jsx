@@ -26,6 +26,7 @@ import EditFacilityPage from "../pages/Dashboard/facilitys/EditFacilityPage"
 import UserPage from "../pages/Dashboard/users/UserPage"
 import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
+import RoomPage from "../pages/Customer/RoomPage"
 
 function RouteIndex() {
     return (
@@ -35,9 +36,10 @@ function RouteIndex() {
       <Route path="/login" Component={LoginPage} />
       <Route path="/register" Component={RegisterPage} />
       <Route path="/home" Component={HomePage} />
-      <Route path="/ruang-meeting" Component={MeetingPage} />
+      <Route path="/ruangan/:slug" Component={RoomPage} />
+      {/* <Route path="/ruang-meeting" Component={MeetingPage} />
       <Route path="/ruang-acara" Component={EventPage} />
-      <Route path="/cospace" Component={CospacePage} />
+      <Route path="/cospace" Component={CospacePage} /> */}
       <Route path="/payment" Component={PaymentPage} />
       <Route path="/success" Component={SuccessPage} />
       <Route path="/order" Component={OrderPage} />

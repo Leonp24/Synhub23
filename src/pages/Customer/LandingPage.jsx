@@ -6,7 +6,26 @@ import FooterComponent from "../../components/Customer/FooterComponent";
 
 import { Link } from "react-router-dom";
 
+import Api from "../../api";
+import { useState, useEffect } from "react";
+
 const LandingPage = () => {
+    // produk API
+    const [produk, setProduk] = useState([]);
+
+    const getDataProduk = async () => {
+        await Api.get('/customer/produk')
+            .then((res) => {
+                // console.log(res.data);
+                setProduk(res.data);
+            })
+    }
+
+    useEffect(() => {
+        getDataProduk();
+    }, [])
+
+
     return (
         <>
             <NavbarComponent isLoggedIn={false} />
@@ -60,27 +79,33 @@ const LandingPage = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={4}>
-                            <Card>
-                                <Card.Img variant="top" src="../src/assets/img-rmeeting.png" />
-                                <Card.Body>
-                                    <Row>
-                                        <Col>
-                                            <Card.Title><Link to="/ruang-meeting">Ruang Meeting</Link></Card.Title>
-                                        </Col>
-                                        <Col>
-                                            <p className="text-end">IDR 80K / Jam</p>
-                                        </Col>
-                                    </Row>
-                                    <Card.Text>
-                                        Ruang meeting ideal untuk bisnis dan usaha yang ingin melakukan pertemuan atau mencari inspirasi bersama.
-                                    </Card.Text>
-                                    <Button variant="outline-dark">4-10 Kursi</Button>
-                                    <Button variant="outline-dark">Free Drink</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col lg={4}>
+                        {
+                            produk.length > 0 ?
+                                produk.map((item, index) => (
+                                    <Col lg={4}>
+                                        <Card key={index}>
+                                            <Card.Img variant="top" src={item.foto} />
+                                            <Card.Body>
+                                                <Row>
+                                                    <Col>
+                                                        <Card.Title><Link to="/ruang-meeting">{item.judul_pendek}</Link></Card.Title>
+                                                    </Col>
+                                                    <Col>
+                                                        <p className="text-end">IDR {item.harga} / {item.satuan}</p>
+                                                    </Col>
+                                                </Row>
+                                                <Card.Text>
+                                                    Ruang meeting ideal untuk bisnis dan usaha yang ingin melakukan pertemuan atau mencari inspirasi bersama.
+                                                </Card.Text>
+                                                <Button variant="outline-dark">4-10 Kursi</Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                ))
+                                : <h3>Ruangan Tidak Tersedia</h3>
+                        }
+
+                        {/* <Col lg={4}>
                             <Card>
                                 <Card.Img variant="top" src="../src/assets/img-racara.png" />
                                 <Card.Body>
@@ -121,7 +146,7 @@ const LandingPage = () => {
                                     <Button variant="outline-dark">Free Wifi</Button>
                                 </Card.Body>
                             </Card>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>
