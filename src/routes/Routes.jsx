@@ -27,22 +27,31 @@ import UserPage from "../pages/Dashboard/users/UserPage"
 import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RoomPage from "../pages/Customer/RoomPage"
+import PrivateRoutes from "./PrivateRoutes"
 
 function RouteIndex() {
-    return (
+  return (
     <Routes>
-        {/* ======routes customer===== */}
+      {/* ======routes customer===== */}
       <Route path="/" Component={LandingPage} />
       <Route path="/login" Component={LoginPage} />
       <Route path="/register" Component={RegisterPage} />
       <Route path="/home" Component={HomePage} />
-      <Route path="/ruangan/:slug" Component={RoomPage} />
-      {/* <Route path="/ruang-meeting" Component={MeetingPage} />
-      <Route path="/ruang-acara" Component={EventPage} />
-      <Route path="/cospace" Component={CospacePage} /> */}
+      <Route
+        path="/ruangan/:slug"
+        element={
+          <PrivateRoutes>
+            <RoomPage />
+          </PrivateRoutes>
+        }
+      />
       <Route path="/payment" Component={PaymentPage} />
       <Route path="/success" Component={SuccessPage} />
       <Route path="/order" Component={OrderPage} />
+
+      {/* <Route path="/ruang-meeting" Component={MeetingPage} />
+      <Route path="/ruang-acara" Component={EventPage} />
+      <Route path="/cospace" Component={CospacePage} /> */}
 
       {/*===== routes dashboard===== */}
       <Route path="/admin/dashboard" element={<DashboardPage />} />
@@ -54,7 +63,7 @@ function RouteIndex() {
       <Route path="/admin/banner" element={<BannerPage />} />
       <Route path="/admin/banner/new" element={<CreateBannerPage />} />
       <Route path="/admin/banner/:id" element={<EditBannerPage />} />
-      
+
       <Route path="/admin/facility" element={<FacilityPage />} />
       <Route path="/admin/facility/new" element={<CreateFacilityPage />} />
       <Route path="/admin/facility/:id" element={<EditFacilityPage />} />

@@ -82,7 +82,7 @@ const HomePage = () => {
 
                     <Row className="banner-image mt-3 d-lg-none d-block align-items-center">
                         <Col>
-                            <img src="../src/assets/img-hero1.png" alt="" />
+                            <img src={banner_1.foto} alt={banner_1.judul}/>
                         </Col>
                     </Row>
 

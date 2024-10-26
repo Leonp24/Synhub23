@@ -39,7 +39,7 @@ const RegisterPage = () => {
         await Api.post('/customer/register', formData)
             .then((res) => {
                 // console.log(res.data);
-                toast.success(res.data, {
+                toast.success(res.data.message, {
                     duration: 3000,
                     position: 'top-center',
                     style: {
