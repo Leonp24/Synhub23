@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom"
 import LandingPage from "../pages/Customer/LandingPage"
 import LoginPage from "../pages/LoginPage"
 import RegisterPage from "../pages/Customer/RegisterPage"
-import PaymentPage from "../pages/Customer/PaymentPage"
+import PaymentPage from "../pages/Customer/PaymentCopy"
 import SuccessPage from "../pages/Customer/SuccessPage"
 import OrderPage from "../pages/Customer/OrderPage"
 
@@ -22,7 +22,7 @@ import EditFacilityPage from "../pages/Dashboard/facilitys/EditFacilityPage"
 import UserPage from "../pages/Dashboard/users/UserPage"
 import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
-import RuanganPage from "../pages/Customer/RuanganPage"
+import RuanganPage from "../pages/Customer/RuanganCopy"
 import PrivateRoutes from "./PrivateRoutes"
 import EventPage from "../pages/Customer/EventPage"
 
@@ -43,9 +43,9 @@ function RouteIndex() {
         }
       />
 
+      <Route path="/payment/:kode" Component={PaymentPage} />
 
       <Route path="/event" Component={EventPage} />
-      <Route path="/payment" Component={PaymentPage} />
       <Route path="/success" Component={SuccessPage} />
       <Route path="/order" Component={OrderPage} />
 

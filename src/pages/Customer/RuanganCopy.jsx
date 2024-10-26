@@ -39,7 +39,6 @@ const RuanganPage = () => {
     const [waktuSelesai, setWaktuSelesai] = useState('');
     const [keterangan, setKeterangan] = useState('');
     const [validation, setValidation] = useState({});
-    const [kodePesanan, setKodePesanan] = useState('');
 
     const getDetailDataProduk = async () => {
         await Api.get(`/customer/produk/${slug}`)
@@ -350,8 +349,7 @@ const RuanganPage = () => {
             .then((res) => {
                 console.log(res.data)
                 if (res.status == 201) {
-                    setKodePesanan(res.data.data);
-                    navigate('payment');
+                    navigate(`/payment/${res.data.data}`);
                     toast.success(res.data.message, {
                         duration: 3000,
                         position: "top-center",
