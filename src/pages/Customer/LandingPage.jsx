@@ -7,10 +7,12 @@ import FooterComponent from "../../components/Customer/FooterComponent";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Api from "../../api";
+import Cookies from "js-cookie";
 
 const LandingPage = () => {
     const [produk, setProduk] = useState([]);
-
+    const cookies = Cookies.get('token');
+    
     const getDataProduk = async () => {
         await Api.get('/customer/produk')
             .then((res) => {
@@ -24,7 +26,7 @@ const LandingPage = () => {
 
     return (
         <>
-            <NavbarComponent isLoggedIn={false} />
+            <NavbarComponent isLoggedIn={cookies} />
             <div id="banner">
                 <Container>
                     <Row>

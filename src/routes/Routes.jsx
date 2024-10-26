@@ -4,10 +4,6 @@ import { Routes, Route } from "react-router-dom"
 import LandingPage from "../pages/Customer/LandingPage"
 import LoginPage from "../pages/LoginPage"
 import RegisterPage from "../pages/Customer/RegisterPage"
-import HomePage from "../pages/Customer/HomePage"
-import MeetingPage from "../pages/Customer/MeetingPage"
-import EventPage from "../pages/Customer/EventPage"
-import CospacePage from "../pages/Customer/CospacePage"
 import PaymentPage from "../pages/Customer/PaymentPage"
 import SuccessPage from "../pages/Customer/SuccessPage"
 import OrderPage from "../pages/Customer/OrderPage"
@@ -27,19 +23,28 @@ import UserPage from "../pages/Dashboard/users/UserPage"
 import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RuanganPage from "../pages/Customer/RuanganPage"
+import PrivateRoutes from "./PrivateRoutes"
+import EventPage from "../pages/Customer/EventPage"
 
 function RouteIndex() {
   return (
     <Routes>
       {/* ======routes customer===== */}
-      <Route path="/" Component={LandingPage} />
       <Route path="/login" Component={LoginPage} />
       <Route path="/register" Component={RegisterPage} />
-      <Route path="/home" Component={HomePage} />
-      <Route path="/ruangan/:slug" Component={RuanganPage} />
-      <Route path="/ruang-meeting" Component={MeetingPage} />
-      <Route path="/ruang-acara" Component={EventPage} />
-      <Route path="/cospace" Component={CospacePage} />
+      <Route path="/" Component={LandingPage} />
+
+      <Route
+        path="/ruangan/:slug"
+        element={
+          <PrivateRoutes>
+            <RuanganPage/>
+          </PrivateRoutes>
+        }
+      />
+
+
+      <Route path="/event" Component={EventPage} />
       <Route path="/payment" Component={PaymentPage} />
       <Route path="/success" Component={SuccessPage} />
       <Route path="/order" Component={OrderPage} />

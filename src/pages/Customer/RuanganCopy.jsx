@@ -39,6 +39,7 @@ const RuanganPage = () => {
     const [waktuSelesai, setWaktuSelesai] = useState('');
     const [keterangan, setKeterangan] = useState('');
     const [validation, setValidation] = useState({});
+    const [kodePesanan, setKodePesanan] = useState('');
 
     const getDetailDataProduk = async () => {
         await Api.get(`/customer/produk/${slug}`)
@@ -349,6 +350,8 @@ const RuanganPage = () => {
             .then((res) => {
                 console.log(res.data)
                 if (res.status == 201) {
+                    setKodePesanan(res.data.data);
+                    navigate('payment');
                     toast.success(res.data.message, {
                         duration: 3000,
                         position: "top-center",
@@ -360,6 +363,17 @@ const RuanganPage = () => {
                 // console.log(err.response.data)
             })
 
+
+    }
+
+    const handlePembayaran = (e) => {
+        if (e.target.value)
+        {
+            setSelectPembayaran(JSON.parse(e.target.value))
+            setPembayaran(JSON.parse(e.target.value).id)
+        } else {
+            setPembayaran('')
+        }
 
     }
 
@@ -439,11 +453,11 @@ const RuanganPage = () => {
                                 <Col lg={6}>
                                     <Form.Group>
                                         <Form.Label>Metode Pembayaran</Form.Label>
-                                        <Form.Select aria-label="pembayaran" onChange={(e) => setPembayaran(e.target.value)}>
-                                            <option>Pilih Metode Bayar</option>
+                                        <Form.Select aria-label="pembayaran" onChange={handlePembayaran}>
+                                            <option value={''}>Pilih Metode Bayar</option>
                                             {
                                                 bayar.map((item, index) => (
-                                                    <option key={index} value={item.id}>{item.nama_pembayaran}</option>
+                                                    <option key={index} value={JSON.stringify(item)}>{item.nama_pembayaran}</option>
                                                 ))
                                             }
                                         </Form.Select>
@@ -461,16 +475,16 @@ const RuanganPage = () => {
                                     (
                                         <Col lg={6}>
                                             <img
-                                                src="../src/assets/ic-bca.png"
+                                                src={selectPembayaran?.logo}
                                                 alt="Logo Bank"
                                                 className="mb-2 mt-3"
                                                 width={120}
                                             />
                                             <h6>
-                                                Nomor Rekening : <b>123456789</b>
+                                                Nomor Rekening : <b>{selectPembayaran?.nomor_rekening}</b>
                                             </h6>
                                             <h5>
-                                                <b>a.n Synhub Space</b>
+                                                <b>a.n {selectPembayaran?.nama_orang}</b>
                                             </h5>
                                         </Col>
                                     )

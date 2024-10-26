@@ -3,8 +3,8 @@ import axios from "axios";
 const Api = axios.create({
     baseURL: 'http://hub.fittern.site/api/',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type' : 'application/json'
+        'Accept': '*/*',
+        'Content-Type' : 'multipart/form-data'
     }
 });
 
