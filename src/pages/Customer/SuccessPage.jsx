@@ -1,10 +1,14 @@
 import NavbarComponent from "../../components/Customer/NavbarComponent";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 const SuccessPage = () => {
+    const { kodePesanan } = useParams();
+
     return (
         <>
             <NavbarComponent isLoggedIn={true} />
@@ -20,9 +24,11 @@ const SuccessPage = () => {
                                     <Col lg={8}>
                                         <h1>Horee!! Pesanan Telah Berhasil!</h1>
                                         <p>Silahkan Ambil Screenshot Kode Reservasi dibawah ini untuk ditunjukkan ke resepsionis :</p>
-                                        <div className="kode-reservasi">
-                                            <h2>SYB1234567</h2>
-                                        </div>
+                                        <Card>
+                                            <Card.Body className="bg-warning rounded text-light text-center">
+                                                <h3>{kodePesanan}</h3>
+                                            </Card.Body>
+                                        </Card>
                                     </Col>
                                 </Row>
                             </div>

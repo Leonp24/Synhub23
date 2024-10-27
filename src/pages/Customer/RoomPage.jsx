@@ -29,8 +29,18 @@ const RoomPage = () => {
 
     // inisialisasi
     const [bayar, setBayar] = useState([]);
+
     const [pembayaran, setPembayaran] = useState('');
     const [selectPembayaran, setSelectPembayaran] = useState('');
+    const handlePembayaran = (e) => {
+        if(e.target.value) {
+            setSelectPembayaran(JSON.parse(e.target.value));
+            setPembayaran(JSON.parse(e.target.value).id);
+        } else {
+            setPembayaran('');
+        }
+    }
+
     const [tanggalMulai, setTanggalMulai] = useState('');
     const [tanggalSelesai, setTanggalSelesai] = useState('');
     const [waktuMulai, setWaktuMulai] = useState('');
@@ -38,7 +48,7 @@ const RoomPage = () => {
     const [perusahaan, setPerusahaan] = useState('');
     const [keterangan, setKeterangan] = useState('');
 
-    const [jumlahOrang, setJumlahOrang] = useState('2');
+    const [jumlahOrang, setJumlahOrang] = useState(2);
     const handleJumlahChange = (e) => {
         setJumlahOrang(e.target.value);
     };
@@ -92,13 +102,13 @@ const RoomPage = () => {
             }
         })
             .then((res) => {
-                // console.log(res.data.message);
+                // console.log(res.data);
                 if (res.status == 201) {
                     toast.success(res.data.message, {
                         duration: 3000,
                         position: 'top-center',
                     });
-                    navigate("/payment");
+                    navigate(`/payment/${res.data.data}`);
                 }
             })
             .catch((err) => {
@@ -189,7 +199,7 @@ const RoomPage = () => {
                                         <Form.Label>Sampai</Form.Label>
                                         <Form.Select aria-label="sampai" onChange={(e) => setWaktuSelesai(e.target.value)} disabled={!waktuMulai} required>
                                             <option>--</option>
-                                            {availableEndTimes.map((time, index) => (
+                                            {times.map((time, index) => (
                                                 <option key={index} value={time}>
                                                     {time}
                                                 </option>
@@ -462,11 +472,11 @@ const RoomPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Metode Pembayaran</Form.Label>
-                                        <Form.Select aria-label="pembayaran" onChange={(e) => setPembayaran(e.target.value)}>
-                                            <option>Pilih Metode Bayar</option>
+                                        <Form.Select aria-label="pembayaran" onChange={handlePembayaran}>
+                                            <option value="">Pilih Metode Bayar</option>
                                             {
                                                 bayar.map((item, index) => (
-                                                    <option key={index} value={item.id}>{item.nama_pembayaran}</option>
+                                                    <option key={index} value={JSON.stringify(item)}>{item.nama_pembayaran}</option>
                                                 ))
                                             }
                                         </Form.Select>
@@ -483,16 +493,16 @@ const RoomPage = () => {
                                         (
                                             <>
                                                 <img
-                                                    src="../src/assets/ic-bca.png"
+                                                    src={selectPembayaran?.logo}
                                                     alt="Logo Bank"
                                                     className="mb-2 mt-3"
                                                     width={120}
                                                 />
                                                 <h6>
-                                                    Nomor Rekening : <b>123456789</b>
+                                                    Nomor Rekening : <b>{selectPembayaran?.nomor_rekening}</b>
                                                 </h6>
                                                 <h5>
-                                                    <b>a.n Synhub Space</b>
+                                                    <b>a.n {selectPembayaran?.nama_orang}</b>
                                                 </h5>
                                             </>
                                         ) : (<></>)
@@ -504,9 +514,8 @@ const RoomPage = () => {
                             <Row className="mt-3">
                                 <Col lg={4}>
                                     <label htmlFor="ringkasan">Ringkasan Pembayaran</label>
-                                    <p>Metode bayar yang dipilih: <b>Transfer</b></p>
+                                    <p>Metode bayar yang dipilih: <b>{selectPembayaran?.nama_pembayaran}</b></p>
                                     <p>Total Waktu: <b>Durasi</b> Jam <b>(IDR 10000)</b></p>
-
                                 </Col>
                             </Row>
 
