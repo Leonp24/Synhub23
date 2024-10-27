@@ -9,6 +9,9 @@ import Cookies from "js-cookie";
 const PaymentPage = () => {
 
     const [pesanan, setPesanan] = useState({});
+    const [image, setImage] = useState("");
+    const [file, setFile] = useState();
+
     const { kode } = useParams();
     const token = Cookies.get('token')
 
@@ -21,12 +24,42 @@ const PaymentPage = () => {
         })
             .then((res) => {
                 setPesanan(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 console.log(err.response.data)
                 // console.log(err.response.data)
             })
+    }
+
+    const handleFileChange = (e) => {
+
+        //define variable for get value image data
+        const imageData = e.target.files[0]
+
+        //check validation file
+        if (!imageData.type.match('image.*')) {
+
+            //set state "image" to null
+            setImage('');
+
+            //show toast
+            toast.error("Format File not Supported!", {
+                duration: 4000,
+                position: "top-right",
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                },
+            });
+
+            return
+        }
+
+        //assign file to state "image"
+        setImage(imageData);
+        setFile(URL.createObjectURL(e.target.files[0]));
     }
 
     useEffect(() => {
@@ -56,7 +89,7 @@ const PaymentPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Pesan</Form.Label>
-                                        <Form.Control type="text" name="tanggalPemesanan" value="01/08/2024" disabled />
+                                        <Form.Control type="text" name="tanggalPemesanan" value={pesanan.created_at} disabled />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -69,7 +102,7 @@ const PaymentPage = () => {
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Waktu/Total { pesanan.produk?.satuan }</Form.Label>
+                                        <Form.Label>Waktu/Total {pesanan.produk?.satuan}</Form.Label>
                                         <Form.Control type="text" name="waktu" value={pesanan.durasi} disabled />
                                     </Form.Group>
                                 </Col>
@@ -87,17 +120,21 @@ const PaymentPage = () => {
                             <Row>
                                 <Col>
                                     <label htmlFor="total-bayar">Total Bayar</label>
-                                    <h5><b>IDR {pesanan.produk?.harga} x {pesanan.durasi} { pesanan.produk?.satuan } = IDR {pesanan.produk?.harga * pesanan.durasi}</b></h5>
+                                    <h5><b>IDR {pesanan.produk?.harga} x {pesanan.durasi} {pesanan.produk?.satuan} = IDR {pesanan.produk?.harga * pesanan.durasi}</b></h5>
                                 </Col>
                             </Row>
 
 
                             <Row>
                                 <Col lg={8}>
+                                    {
+                                        file ? (<img width={200} className="icon" src={file} />) : (<></>)
+                                    }
                                     <Form.Group>
                                         <Form.Label>Upload Bukti Bayar</Form.Label>
-                                        <Form.Control type="file" name="buktiBayar" required />
+                                        <Form.Control type="file" name="buktiBayar" onChange={handleFileChange} required />
                                     </Form.Group>
+                                    
                                 </Col>
                             </Row>
 

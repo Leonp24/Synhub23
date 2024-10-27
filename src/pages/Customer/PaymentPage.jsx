@@ -1,15 +1,33 @@
 import NavbarComponent from "../../components/Customer/NavbarComponent";
 
 import { Container, Row, Col, Form } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import { useState } from "react";
+import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import Api from "../../api";
 
 const PaymentPage = () => {
-    const [paymentMethod, setPaymentMethod] = useState("");
+    const [pesanan, setPesanan] = useState({});
 
-    const handlePaymentMethodChange = (e) => {
-        setPaymentMethod(e.target.value);
-    };
+    const token = Cookies.get('token');
+    const { kodePesanan } = useParams();
+
+    const getDetailDataPesanan = async () => {
+        await Api.get(`/customer/pesanan/${kodePesanan}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then((res) => {
+            // console.log(res.data)
+            setPesanan(res.data);
+        }).catch((err) => {
+            console.log(err.response.data)
+        })
+    }
+
+    useEffect(() => {
+        getDetailDataPesanan();
+    }, []);
 
     return (
         <>
@@ -27,14 +45,14 @@ const PaymentPage = () => {
                             <Row>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Nama Pemesan</Form.Label>
-                                        <Form.Control type="text" name="nama-pemesan" value="Ahmad Fulan" disabled />
+                                        <Form.Label>Kode Pesanan</Form.Label>
+                                        <Form.Control type="text" name="nama-pemesan" value={pesanan.kode_pesanan} disabled />
                                     </Form.Group>
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Pesan</Form.Label>
-                                        <Form.Control type="text" name="tanggalPemesanan" value="01/08/2024" disabled />
+                                        <Form.Control type="text" name="tanggalPemesanan" value={pesanan.created_at} disabled />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -42,21 +60,14 @@ const PaymentPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Ruangan</Form.Label>
-                                        <Form.Control type="text" name="ruangan" value="Ruang Meeting" disabled />
+                                        <Form.Control type="text" name="ruangan" value={pesanan.produk?.judul_pendek} disabled />
                                     </Form.Group>
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
-                                        <Form.Label>Waktu/Total Jam</Form.Label>
-                                        <Form.Control type="text" name="waktu" value="09.00/3 Jam" disabled />
+                                        <Form.Label>Total Waktu</Form.Label>
+                                        <Form.Control type="text" name="waktu" value={pesanan.durasi + " " + pesanan.produk?.satuan} disabled />
                                     </Form.Group>
-                                </Col>
-                            </Row>
-
-                            <Row>
-                                <Col>
-                                    <label htmlFor="total-bayar">Total Bayar</label>
-                                    <h5><b>IDR 80.000 x 3 jam : IDR 240.000</b></h5>
                                 </Col>
                             </Row>
 
@@ -64,46 +75,19 @@ const PaymentPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Metode Pembayaran</Form.Label>
-                                        <Form.Select
-                                            aria-label="pembayaran"
-                                            required
-                                            onChange={handlePaymentMethodChange}
-                                        >
-                                            <option value="">Pilih Metode Bayar</option>
-                                            <option value="Cash">Cash</option>
-                                            <option value="Transfer Bank">Transfer Bank</option>
-                                        </Form.Select>
+                                        <Form.Control type="text" value={pesanan.bayar?.nama_pembayaran} disabled />
                                     </Form.Group>
-
-                                    {paymentMethod === "Transfer Bank" && (
-                                        <>
-                                            <img
-                                                src="../src/assets/ic-bca.png"
-                                                alt="Logo Bank"
-                                                className="mb-2 mt-3"
-                                                width={120}
-                                            />
-                                            <h6>
-                                                Nomor Rekening : <b>123456789</b>
-                                            </h6>
-                                            <h5>
-                                                <b>a.n Synhub Space</b>
-                                            </h5>
-                                        </>
-                                    )}
                                 </Col>
                             </Row>
 
-                            {paymentMethod === "Transfer Bank" && (
-                                <Row>
-                                    <Col lg={8}>
-                                        <Form.Group>
-                                            <Form.Label>Upload Bukti Bayar</Form.Label>
-                                            <Form.Control type="file" name="buktiBayar" required />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                            )}
+                            <Row>
+                                <Col>
+                                    <label htmlFor="total-bayar">Total Bayar</label>
+                                    <h5>
+                                        <b>IDR {pesanan.produk?.harga} x {pesanan.durasi + " " + pesanan.produk?.satuan} = IDR {pesanan.produk?.harga * pesanan.durasi}</b>
+                                    </h5>
+                                </Col>
+                            </Row>
 
                             <Row>
                                 <Col lg={8}>
