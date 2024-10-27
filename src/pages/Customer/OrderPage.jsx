@@ -19,7 +19,7 @@ const OrderPage = () => {
             }
         })
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setPesanan(res.data);
             })
     }
