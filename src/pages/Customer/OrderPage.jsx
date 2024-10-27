@@ -47,7 +47,7 @@ const OrderPage = () => {
                                                 </Col>
                                                 <Col md={4}>
                                                     <label htmlFor="tanggal-pemesanan">Tanggal Pemesanan</label>
-                                                    <h5>{item.created_at}</h5>
+                                                    <h5>{item.created_at.substring(0,10)}</h5>
                                                 </Col>
                                                 <Col md={4}>
                                                     <label htmlFor="waktu">Total Waktu</label>
