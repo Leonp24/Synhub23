@@ -45,9 +45,33 @@ function RouteIndex() {
           </PrivateRoutes>
         }
       />
-      <Route path="/payment/:kodePesanan" Component={PaymentPage} />
-      <Route path="/success/:kodePesanan" Component={SuccessPage} />
-      <Route path="/order" Component={OrderPage} />
+
+      <Route
+        path="/payment/:kodePesanan"
+        element={
+          <PrivateRoutes>
+            <PaymentPage />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/success/:kodePesanan"
+        element={
+          <PrivateRoutes>
+            <SuccessPage />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/order"
+        element={
+          <PrivateRoutes>
+            <OrderPage />
+          </PrivateRoutes>
+        }
+      />
 
       {/* <Route path="/ruang-meeting" Component={MeetingPage} />
       <Route path="/ruang-acara" Component={EventPage} />
