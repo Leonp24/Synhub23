@@ -31,7 +31,8 @@ const RoomPage = () => {
     const [bayar, setBayar] = useState([]);
     const [pembayaran, setPembayaran] = useState('');
     const [selectPembayaran, setSelectPembayaran] = useState('');
-    const [tanggal, setTanggal] = useState('');
+    const [tanggalMulai, setTanggalMulai] = useState('');
+    const [tanggalSelesai, setTanggalSelesai] = useState('');
     const [waktuMulai, setWaktuMulai] = useState('');
     const [waktuSelesai, setWaktuSelesai] = useState('');
     const [perusahaan, setPerusahaan] = useState('');
@@ -43,7 +44,7 @@ const RoomPage = () => {
     };
 
     
-    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+    const times = ['09.00', '10.00', '11.00', '12.00', '13.00', '14.00', '15.00', '16.00', '17.00'];
     const availableEndTimes = times.filter(time => time > waktuMulai);
 
     const getDetailDataProduk = async () => {
@@ -72,7 +73,8 @@ const RoomPage = () => {
         // validasi
         const formData = new FormData();
         formData.append('produk', produk.id);
-        formData.append('tanggal_1', tanggal);
+        formData.append('tanggal_1', tanggalMulai);
+        formData.append('tanggal_2', tanggalSelesai);
         formData.append('jam_1', waktuMulai);
         formData.append('jam_2', waktuSelesai);
         formData.append('bayar', pembayaran);
@@ -80,24 +82,21 @@ const RoomPage = () => {
         formData.append('jumlah_orang', jumlahOrang);
         formData.append('keterangan', keterangan);
 
-        console.log(produk.id, tanggal, waktuMulai, waktuSelesai, pembayaran, perusahaan, jumlahOrang, keterangan);
+        // console.log(produk.id, tanggal, waktuMulai, waktuSelesai, pembayaran, perusahaan, jumlahOrang, keterangan);
 
         
         await Api.post('/customer/pesanan', formData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         })
             .then((res) => {
                 // console.log(res.data.message);
-                if (res.data.status == 200) {
+                if (res.status == 201) {
                     toast.success(res.data.message, {
                         duration: 3000,
                         position: 'top-center',
-                        style: {
-                            width: '30rem',
-                        }
                     });
                     navigate("/payment");
                 }
@@ -155,7 +154,7 @@ const RoomPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Pilih Tanggal</Form.Label>
-                                        <Form.Control type="date" name="tanggal" onChange={(e) => setTanggal(e.target.value)}/>
+                                        <Form.Control type="date" name="tanggal" onChange={(e) => setTanggalMulai(e.target.value)}/>
                                     </Form.Group>
                                     {
                                         validation.tanggal_1 && (
@@ -233,14 +232,28 @@ const RoomPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Nama Perusahaan/Industri</Form.Label>
-                                        <Form.Control type="text" name="nama-perusahaan" placeholder="cth. PT. ABC"/>
+                                        <Form.Control type="text" name="nama-perusahaan" placeholder="cth. PT. ABC" value={perusahaan} onChange={(e) => setPerusahaan(e.target.value)}/>
                                     </Form.Group>
+                                    {
+                                        validation.perusahaan && (
+                                            <p className="text-danger mt-2" role="alert">
+                                                <FontAwesomeIcon icon={faTriangleExclamation} />  {validation.perusahaan}
+                                            </p>
+                                        )
+                                    }
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Jumlah Orang</Form.Label>
-                                        <Form.Control type="number" name="jumlah-orang" min={2} max={10} value={jumlah}/>
+                                        <Form.Control type="number" name="jumlah-orang" min={2} max={10} value={jumlahOrang} onChange={handleJumlahChange}/>
                                     </Form.Group>
+                                    {
+                                        validation.jumlah_orang && (
+                                            <p className="text-danger mt-2" role="alert">
+                                                <FontAwesomeIcon icon={faTriangleExclamation} />  {validation.jumlah_orang}
+                                            </p>
+                                        )
+                                    }
                                 </Col>
                             </Row>
                         </div>
@@ -251,22 +264,43 @@ const RoomPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Mulai</Form.Label>
-                                        <Form.Control type="date" name="tanggalMulai"  />
+                                        <Form.Control type="date" name="tanggalMulai" onChange={(e) => setTanggalMulai(e.target.value)}  />
                                     </Form.Group>
+                                    {
+                                        validation.tanggal_1 && (
+                                            <p className="text-danger mt-2" role="alert">
+                                                <FontAwesomeIcon icon={faTriangleExclamation} />  {validation.tanggal_1}
+                                            </p>
+                                        )
+                                    }
                                 </Col>
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Tanggal Selesai</Form.Label>
-                                        <Form.Control type="date" name="tanggalSelesai"  />
+                                        <Form.Control type="date" name="tanggalSelesai" onChange={(e) => setTanggalSelesai(e.target.value)}  />
                                     </Form.Group>
+                                    {
+                                        validation.tanggal_2 && (
+                                            <p className="text-danger mt-2" role="alert">
+                                                <FontAwesomeIcon icon={faTriangleExclamation} />  {validation.tanggal_2}
+                                            </p>
+                                        )
+                                    }
                                 </Col>
                             </Row>
                             <Row>
                                 <Col lg={8}>
                                     <Form.Group>
                                         <Form.Label>Penjelasan Singkat Tentang Acara</Form.Label>
-                                        <Form.Control as="textarea" name="deskripsi" rows={3} />
+                                        <Form.Control as="textarea" name="deskripsi" rows={3} onChange={(e) => setKeterangan(e.target.value)} />
                                     </Form.Group>
+                                    {
+                                        validation.keterangan && (
+                                            <p className="text-danger mt-2" role="alert">
+                                                <FontAwesomeIcon icon={faTriangleExclamation} />  {validation.keterangan}
+                                            </p>
+                                        )
+                                    }
                                 </Col>
                             </Row>
                         </div>
@@ -282,7 +316,7 @@ const RoomPage = () => {
                                 <Col lg={4}>
                                     <Form.Group>
                                         <Form.Label>Pilih Tanggal</Form.Label>
-                                        <Form.Control type="date" name="tanggal" onChange={(e) => setTanggal(e.target.value)} />
+                                        <Form.Control type="date" name="tanggal" onChange={(e) => setTanggalMulai(e.target.value)} />
                                     </Form.Group>
                                     {
                                         validation.tanggal_1 && (
