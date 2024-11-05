@@ -24,7 +24,6 @@ import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RuanganPage from "../pages/Customer/RuanganPage"
 import PrivateRoutes from "./PrivateRoutes"
-import EventPage from "../pages/Customer/EventPage"
 
 function RouteIndex() {
   return (
@@ -43,11 +42,32 @@ function RouteIndex() {
         }
       />
 
-      <Route path="/payment/:kodePesanan" Component={PaymentPage} />
+      <Route
+        path="/payment/:kodePesanan"
+        element={
+          <PrivateRoutes>
+            <PaymentPage/>
+          </PrivateRoutes>
+        }
+      />
+      
+      <Route
+        path="/success/:kodePesanan"
+        element={
+          <PrivateRoutes>
+            <SuccessPage/>
+          </PrivateRoutes>
+        }
+      />
 
-      <Route path="/event" Component={EventPage} />
-      <Route path="/success" Component={SuccessPage} />
-      <Route path="/order" Component={OrderPage} />
+      <Route
+        path="/order"
+        element={
+          <PrivateRoutes>
+            <OrderPage/>
+          </PrivateRoutes>
+        }
+      />
 
       {/*===== routes dashboard===== */}
       <Route path="/admin/dashboard" element={<DashboardPage />} />

@@ -347,13 +347,15 @@ const RuanganPage = () => {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.status == 201) {
                     toast.success(res.data.message, {
                         duration: 3000,
                         position: "top-center",
                     });
+                    navigate(`/payment/${res.data.data}`)
                 }
+
             })
             .catch((err) => {
                 setValidation(err.response.data)
