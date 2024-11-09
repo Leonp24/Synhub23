@@ -23,6 +23,7 @@ import UserPage from "../pages/Dashboard/users/UserPage"
 import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RuanganPage from "../pages/Customer/RuanganPage"
+
 import PrivateRoutes from "./PrivateRoutes"
 
 function RouteIndex() {
