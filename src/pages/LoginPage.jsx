@@ -34,7 +34,18 @@ const LoginPage = () => {
                     duration: 3000,
                     position: 'top-center',
                 });
-                navigate('/');
+
+                // jika customer login
+                if (res.data.role == 'customer') {
+                    navigate('/');
+                }
+
+                // jika admin login
+                if (res.data.role == 'admin') {
+                    navigate('/admin/dashboard');
+                }
+
+
             })
             .catch((err) => {
                 if (err.response.status == 401) {

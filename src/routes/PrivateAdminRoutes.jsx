@@ -1,24 +1,23 @@
 import Cookies from "js-cookie"
 import { Navigate } from "react-router-dom";
 
-const PrivateRoutes = ({children}) => {
+const PrivateAdminRoutes = ({ children }) => {
 
     const token = Cookies.get('token');
-    const name = Cookies.get('name');
-    const phone = Cookies.get('phone');
     const role = Cookies.get('role');
 
     if (!token) {
         return <Navigate to='/login' replace />
     }
 
-    if (token && role == 'admin') {
+    if (token && role == 'customer') {
         return <Navigate to='/' replace />
     }
 
-    if (token && role == 'customer') {
+    if (token && role == 'admin') {
         return children;
     }
+
 }
 
-export default PrivateRoutes
+export default PrivateAdminRoutes

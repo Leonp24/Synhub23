@@ -28,6 +28,7 @@ import CreateUserPage from "../pages/Dashboard/users/CreateUserPage"
 import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RoomPage from "../pages/Customer/RoomPage"
 import PrivateRoutes from "./PrivateRoutes"
+import PrivateAdminRoutes from "./PrivateAdminRoutes"
 
 function RouteIndex() {
   return (
@@ -78,9 +79,21 @@ function RouteIndex() {
       <Route path="/cospace" Component={CospacePage} /> */}
 
       {/*===== routes dashboard===== */}
-      <Route path="/admin/dashboard" element={<DashboardPage />} />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <PrivateAdminRoutes>
+            <DashboardPage />
+          </PrivateAdminRoutes>}
+      />
 
-      <Route path="/admin/bank" element={<BankPage />} />
+      <Route
+        path="/admin/bank"
+        element={
+          <PrivateAdminRoutes>
+            <BankPage />
+          </PrivateAdminRoutes>}
+      />
       <Route path="/admin/bank/new" element={<CreateBankPage />} />
       <Route path="/admin/bank/:id" element={<EditBankPage />} />
 
