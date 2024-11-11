@@ -25,6 +25,7 @@ import EditUserPage from "../pages/Dashboard/users/EditUserPage"
 import RuanganPage from "../pages/Customer/RuanganPage"
 
 import PrivateRoutes from "./PrivateRoutes"
+import PrivateAdminRoutes from "./PrivateAdminRoutes"
 
 function RouteIndex() {
   return (
@@ -38,7 +39,7 @@ function RouteIndex() {
         path="/ruangan/:slug"
         element={
           <PrivateRoutes>
-            <RuanganPage/>
+            <RuanganPage />
           </PrivateRoutes>
         }
       />
@@ -47,16 +48,16 @@ function RouteIndex() {
         path="/payment/:kodePesanan"
         element={
           <PrivateRoutes>
-            <PaymentPage/>
+            <PaymentPage />
           </PrivateRoutes>
         }
       />
-      
+
       <Route
         path="/success/:kodePesanan"
         element={
           <PrivateRoutes>
-            <SuccessPage/>
+            <SuccessPage />
           </PrivateRoutes>
         }
       />
@@ -65,15 +66,30 @@ function RouteIndex() {
         path="/order"
         element={
           <PrivateRoutes>
-            <OrderPage/>
+            <OrderPage />
           </PrivateRoutes>
         }
       />
 
       {/*===== routes dashboard===== */}
-      <Route path="/admin/dashboard" element={<DashboardPage />} />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <PrivateAdminRoutes>
+            <DashboardPage />
+          </PrivateAdminRoutes>
+        }
+      />
 
-      <Route path="/admin/bank" element={<BankPage />} />
+      <Route
+        path="/admin/bank"
+        element={
+          <PrivateAdminRoutes>
+            <BankPage />
+          </PrivateAdminRoutes>
+        }
+      />
+
       <Route path="/admin/bank/new" element={<CreateBankPage />} />
       <Route path="/admin/bank/:id" element={<EditBankPage />} />
 
