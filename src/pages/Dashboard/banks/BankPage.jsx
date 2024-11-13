@@ -4,23 +4,34 @@ import DefaultLayout from "../../../components/Dashboard/DefaultLayout";
 import { useEffect, useState } from "react";
 import Api from "../../../api";
 import Cookies from "js-cookie";
+import PaginationComponent from "../../../components/Dashboard/PaginationComponent";
 
 const BankPage = () => {
 
     const [bayar, setBayar] = useState([])
+    const [perPage, setPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [total, setTotal] = useState(0);
+
     const token = Cookies.get('token');
 
-    const getDataBayar =  async () => {
-        await Api.get('/dashboard/bayar', {
+    const getDataBayar = async (pageNumber) => {
+
+        const page = pageNumber ? pageNumber : currentPage;
+
+        await Api.get(`/dashboard/bayar?page=${page}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
             .then((res) => {
-                console.log(res.data);
+                setBayar(res.data.data);
+                setCurrentPage(res.data.current_page);
+                setPerPage(res.data.per_page);
+                setTotal(res.data.total);
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.message);
             })
     }
 
@@ -47,18 +58,30 @@ const BankPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>loading...</td>
-                            <td>loading...</td>
-                            <td>loading...</td>
-                            <td>loading...</td>
-                            <td>loading...</td>
-                            <td><Link to="/admin/bank/:id" className="btn btn-info btn-sm text-white mb-1 me-2">Edit</Link>
-                                <Button className="btn-warning btn-sm text-white mb-1">Delete</Button>
-                            </td>
-                        </tr>
+                        {
+                            bayar.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{++index + (perPage * (currentPage - 1)) }</td>
+                                    <td><img src={item.logo} width={80} alt={item.nama_pembayaran} /></td>
+                                    <td>{item.nama_pembayaran}</td>
+                                    <td>{item.nomor_rekening}</td>
+                                    <td>{item.nama_orang}</td>
+                                    <td><Link to="/admin/bank/:id" className="btn btn-info btn-sm text-white mb-1 me-2">Edit</Link>
+                                        <Button className="btn-warning btn-sm text-white mb-1">Delete</Button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </Table>
+
+                <PaginationComponent
+                    currentPage={currentPage}
+                    perPage={perPage}
+                    total={total}
+                    onChange={(pageNumber) => getDataBayar(pageNumber)}
+                    position='end'
+                />
             </div>
         </DefaultLayout>
     )
